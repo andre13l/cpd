@@ -7,13 +7,7 @@ def on_mult(m_ar, m_br):
     pha = np.ones((m_ar, m_ar))
     phb = np.array([[i + 1 for _ in range(m_br)] for i in range(m_br)])
 
-    phc = np.zeros((m_ar, m_br))
-    for i in range(m_ar):
-        for j in range(m_br):
-            temp = 0
-            for k in range(m_ar):
-                temp += pha[i, k] * phb[k, j]
-            phc[i, j] = temp
+    phc = np.dot(pha, phb)
 
     end_time = time.time()
     elapsed_time = end_time - start_time
