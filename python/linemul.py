@@ -11,27 +11,26 @@ def generate_matrices(number_of_lines):
     return matrix_all_ones, matrix_incremental
 
 def line_multiplication(matrix_all_ones, matrix_incremental, number_of_lines):
-    
-    result = np.zeros((number_of_lines, number_of_lines))
+    # Broadcast matrix_all_ones to have the same shape as matrix_incremental
+    matrix_all_ones_broadcasted = np.broadcast_to(matrix_all_ones[:, 0][:, None], matrix_incremental.shape)
 
-    for i in range(number_of_lines):
-        for j in range(number_of_lines):
-            result[i, j] = matrix_all_ones[i, 0] * matrix_incremental[i, j]
+    # Perform element-wise multiplication
+    result = matrix_all_ones_broadcasted * matrix_incremental
 
     return result
 
-# Example
-number_of_lines = int(input("Enter the number of lines: "))
+if __name__ == "__main__":
+    number_of_lines = int(input("Enter the number of lines: "))
 
-start_time = time.time()
+    start_time = time.time()
 
-matrix_all_ones, matrix_incremental = generate_matrices(number_of_lines)
+    matrix_all_ones, matrix_incremental = generate_matrices(number_of_lines)
 
-result = line_multiplication(matrix_all_ones, matrix_incremental, number_of_lines)
+    result = line_multiplication(matrix_all_ones, matrix_incremental, number_of_lines)
 
-end_time = time.time()
-execution_time = round(end_time - start_time, 3)
-print(execution_time)
+    end_time = time.time()
+    execution_time = round(end_time - start_time, 3)
+    print("Execution Time:", execution_time)
 
-print("\nResult of multiplication:")
-print(result)
+    print("\nResult of multiplication:")
+    print(result)
